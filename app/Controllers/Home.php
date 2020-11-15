@@ -6,7 +6,8 @@ class Home extends BaseController
 	public function index()
 	{
 		$sesion = session();
-		$usuario = (isset($sesion->usuario)) ? $sesion->usuario : ['name' => 'invitado','rol' => -1];
+
+		$usuario = (isset($sesion->usuario)) ? $sesion->usuario : ['nick' => 'invitado','rol' => -1];
 		return view('welcome_message', ['usuario' => $usuario]);
 	}
 
