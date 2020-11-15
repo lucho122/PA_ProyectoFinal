@@ -20,6 +20,8 @@ class UsuarioModel extends Model
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = false;
+
+    
 }
 
 ?>
