@@ -220,7 +220,7 @@
 	<div class="heroe">
 
 		<h1>Proyecto Test <?= CodeIgniter\CodeIgniter::CI_VERSION ?></h1>
-
+		<h2>Te damos la bienvenida, <?php echo $usuario['name']; ?></h2>
 		<h2>The small framework with powerful features</h2>
 
 	</div>
