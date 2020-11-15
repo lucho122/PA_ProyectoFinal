@@ -94,7 +94,6 @@ class Connection extends BaseConnection implements ConnectionInterface
 
 		// Convert semicolons to spaces.
 		$this->DSN = str_replace(';', ' ', $this->DSN);
-
 		$this->connID = $persistent === true ? pg_pconnect($this->DSN) : pg_connect($this->DSN);
 
 		if ($this->connID !== false)
