@@ -219,10 +219,11 @@
 
 	<div class="heroe">
 
-		<h1>Proyecto PA <?= CodeIgniter\CodeIgniter::CI_VERSION ?></h1>
-
-		<h2>Prueba 2</h2>
-
+		<h1>Proyecto Test <?= CodeIgniter\CodeIgniter::CI_VERSION ?></h1>
+		<h2>Bienvenido, <?php echo $usuario['nick']; ?></h2>
+		<?php if (isset($_SESSION['usuario'])) { ?>
+			<h2><a href="<?php echo site_url('logout'); ?>">Cerrar sesion</a></h2>
+		<?php } ?>
 	</div>
 
 </header>
