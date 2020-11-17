@@ -31,11 +31,23 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+
+// Rutas Login / Registro (Todos los Usuarios)
 $routes->get('login', 'AuthController');
 $routes->post('login', 'AuthController::login');
 $routes->get('logout', 'AuthController::logout');
 $routes->get('register', 'AuthController::register');
 $routes->post('register', 'AuthController::registrar');
+
+// Rutas Administrador
+// Categorias
+$routes->get('admin/categorias', 'CategoriaController::index');
+$routes->get('admin/categorias/agregar', 'CategoriaController::agregar');
+$routes->get('admin/categorias/editar/(:num)', 'CategoriaController::editar/$1');
+$routes->post('admin/categorias/agregar', 'CategoriaController::guardar');
+$routes->post('admin/categorias/actualizar', 'CategoriaController::actualizar');
+// FinCategorias
+
 /**
  * --------------------------------------------------------------------
  * Additional Routing

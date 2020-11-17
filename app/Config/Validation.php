@@ -63,12 +63,12 @@ class Validation
 									]
 						],
 		'FechaNacimiento' => [
-								'rules' => 'required|valid_date|fecha_nacimiento|edad_minima',
+								'rules' => 'required|valid_date|fecha_nacimiento|edad',
 								'errors' => [
 												'required' => 'Fecha de Nacimiento es un campo obligatorio',
 												'valid_date' => 'Fecha de Nacimiento no tiene el formato correcto',
 												'fecha_nacimiento' => 'Fecha de Nacimiento no puede ser mayor al día de hoy',
-												'edad_minima' => 'No cumple con el requisito mínimo de edad'
+												'edad' => 'Su edad no es la adecuada para este sitio web'
 											]
 							   ],
 		'Nick' => [

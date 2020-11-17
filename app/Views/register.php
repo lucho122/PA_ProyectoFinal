@@ -1,33 +1,69 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrate</title>
-</head>
-<body>
+<div class="container">
 <?php
-if (isset($_SESSION['errores'])) {
-    foreach ($_SESSION['errores'] as $error) {
-        echo $error . "<br>";
-    }
-}
-?>
-    <form action="<?php site_url('/register'); ?>" method="post" enctype="multipart/form-data">
-        Primer nombre&nbsp;*&nbsp;<input type="text" name="PNombre" value="<?= old('PNombre'); ?>"><br><br>
-        Segundo nombre&nbsp;<input type="text" name="SNombre" value="<?= old('SNombre'); ?>"><br><br>
-        Primer apellido&nbsp;*&nbsp;<input type="text" name="PApellido"  value="<?= old('PApellido'); ?>"><br><br>
-        Segundo apellido&nbsp;<input type="text" name="SApellido" value="<?= old('SApellido'); ?>"><br><br>
-        Fecha de Nacimiento&nbsp;*&nbsp;<input type="date" name="FechaNacimiento" value="<?= old('FechaNacimiento'); ?>"><br><br>
-        Nick&nbsp;*&nbsp;<input type="text" name="Nick" value="<?= old('Nick'); ?>"><br><br>
-        Contraseña&nbsp;*&nbsp;<input type="password" name="Clave"><br><br>
-        Confirmar Contraseña&nbsp;*&nbsp;<input type="password" name="ClaveConfirmar"><br><br>
-        Sexo *<br>
-        <input type="radio" name="Sexo" value="m" checked> Masculino&nbsp;&nbsp;
-        <input type="radio" name="Sexo" value="f"> Femenino<br><br>
-        Correo electrónico&nbsp;*&nbsp;<input type="text" name="Email" value="<?= old('Email'); ?>"><br><br>
-        Foto&nbsp;*&nbsp;<input type="file" name="Foto"><br><br>
-        <input type="submit" value="Registrarse">
+if (isset($_SESSION['errores'])) { ?>
+    <?php foreach ($_SESSION['errores'] as $error) { ?>
+        <div class="alert alert-danger alert-dismissible fade show " role="alert"><?php  echo $error ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php } ?>
+<?php } ?>
+    <div class="row justify-content-md-center">
+    <form action="<?= base_url('register'); ?>" method="post" enctype="multipart/form-data">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="PNombre">Primer Nombre *</label>
+                <input type="text" class="form-control form-control-sm" name="PNombre" value="<?= old('PNombre'); ?>">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="SNombre">Segundo Nombre</label>
+                <input type="text" class="form-control form-control-sm" name="SNombre" value="<?= old('SNombre'); ?>">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="PApellido">Primer Apellido *</label>
+                <input type="text" class="form-control form-control-sm" name="PApellido" value="<?= old('PApellido'); ?>">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="SApellido">Segundo Apellido</label>
+                <input type="text" class="form-control form-control-sm" name="SApellido" value="<?= old('SApellido'); ?>">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="FechaNacimiento">Fecha de Nacimiento</label>
+            <input type="date" class="form-control form-control-sm" name="FechaNacimiento" value="<?= old('FechaNacimiento'); ?>">
+        </div>
+        <div class="form-group">
+            <label for="Nick">Nick *</label>
+            <input type="text" class="form-control form-control-sm" name="Nick" value="<?= old('Nick'); ?>">
+        </div>
+        <div class="form-group">
+            <label for="Clave">Contraseña *</label>
+            <input type="password" class="form-control form-control-sm" name="Clave">
+        </div>
+        <div class="form-group">
+            <label for="ClaveConfirmar">Confirmar contraseña *</label>
+            <input type="password" class="form-control form-control-sm" name="ClaveConfirmar">
+        </div>
+        <div class="form-group">
+            <label for="Sexo">Sexo *</label>
+            <div class="radio">
+                <input type="radio" name="Sexo" value="m" checked> Masculino
+            </div>
+            <div class="radio">
+                <input type="radio" name="Sexo" value="f"> Femenino
+            </div>
+        <div class="form-group">
+            <label for="Email">Correo electrónico *</label>
+            <input type="text" class="form-control form-control-sm" name="Email" value="<?= old('Email'); ?>">
+        </div>
+        <div class="form-group">
+            <label for="Foto">Foto *</label>
+            <input type="file" name="Foto">
+        </div>
+        <input type="submit" class="btn btn-primary" value="Registrarse">
     </form>
-</body>
-</html>
+    </div>
+</div>
