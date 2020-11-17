@@ -13,7 +13,9 @@ class AuthController extends BaseController
     }
 
     public function register() {
-        return view ('register');
+        echo view ('templates/head', ['titulo' => 'Registro']);
+		echo view ('register');
+		echo view ('templates/footer');
     }
 
     public function registrar() {
