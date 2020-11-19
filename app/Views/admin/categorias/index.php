@@ -22,8 +22,8 @@ if (isset($_SESSION['notificacion'])) { ?>
             <tr>
                <td><?php echo $categoria['catnombre'] ?></td>
                <td align="center">
-                   <a href="<?= base_url('admin/categorias/editar/').'/'.$categoria['catid']; ?>"><i class="fas fa-edit"></i></a>
-                   <a href=""><i class="fas fa-trash-alt"></i></a>
+                    <a class="btn btn-primary" href="<?= base_url('admin/categorias/editar/').'/'.$categoria['catid']; ?>"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-danger" href="<?= base_url('admin/confirmacion/categoria/').'/'.$categoria['catid']; ?>"><i class="fas fa-trash-alt"></i></a>
                </td>
             </tr>
            <?php endforeach; ?>

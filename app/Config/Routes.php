@@ -33,11 +33,12 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 
 // Rutas Login / Registro (Todos los Usuarios)
-$routes->get('login', 'AuthController');
-$routes->post('login', 'AuthController::login');
-$routes->get('logout', 'AuthController::logout');
-$routes->get('register', 'AuthController::register');
-$routes->post('register', 'AuthController::registrar');
+$routes->get('login', 'AuthController'); # Invitados, Usuarios, Admins
+$routes->post('login', 'AuthController::login'); # Invitados, Usuarios, Admins
+$routes->get('logout', 'AuthController::logout'); # Usuarios, Admins
+$routes->get('register', 'AuthController::register'); # Invitados, Usuarios, Admins
+$routes->post('register', 'AuthController::registrar'); # Invitados, Usuarios, Admins
+// Fin Login/Registro
 
 // Rutas Administrador
 // Categorias
@@ -46,7 +47,12 @@ $routes->get('admin/categorias/agregar', 'CategoriaController::agregar');
 $routes->get('admin/categorias/editar/(:num)', 'CategoriaController::editar/$1');
 $routes->post('admin/categorias/agregar', 'CategoriaController::guardar');
 $routes->post('admin/categorias/actualizar', 'CategoriaController::actualizar');
+$routes->post('admin/categorias/eliminar', 'CategoriaController::eliminar');
 // FinCategorias
+
+// Ruta confirmación eliminiaciones
+$routes->get('admin/confirmacion/(:alpha)/(:num)', 'EliminacionController::index/$1/$2');
+// FinConfirmacionEliminaciones
 
 /**
  * --------------------------------------------------------------------

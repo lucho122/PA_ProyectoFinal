@@ -1,6 +1,5 @@
 <?php
 namespace App\Controllers;
-use CodeIgniter\Controller;
 use App\Models\CategoriaModel;
 
 class CategoriaController extends BaseController 
@@ -56,6 +55,13 @@ class CategoriaController extends BaseController
 
     public function eliminar() {
         $categoriaModel = new CategoriaModel();
+        $id = trim($this->request->getVar('Id'));
+        $categoriaModel->delete($id);
+
+        $this->session->set('notificacion', ['label' => 'alert-danger', 'mensaje' => 'Categoría eliminada con éxito']);
+        $this->session->markAsFlashdata('notificacion');
+
+        return $this->response->redirect(base_url('/admin/categorias'));
     }
 }
 ?>
