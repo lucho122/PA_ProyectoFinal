@@ -1,5 +1,6 @@
 <?php
 namespace App\Controllers;
+use Config\Constantes\Constantes;
 
 /**
  * Class BaseController
@@ -46,4 +47,11 @@ class BaseController extends Controller
 		$this->validation = \Config\Services::validation();
 	}
 
+	public function isLogged() {
+		return isset($this->session->usuario) ? true : false;
+	}
+
+	public function isAdmin() {
+		return ($this->isLogged() && ($this->session->usuario['rol'] == Constantes::ROL_ADMIN)) ? true : false;
+	}
 }

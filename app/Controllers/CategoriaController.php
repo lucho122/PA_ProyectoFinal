@@ -4,7 +4,12 @@ use App\Models\CategoriaModel;
 
 class CategoriaController extends BaseController 
 {
+
     public function index() {
+
+        if (!parent::isAdmin())
+            return redirect()->back();
+
         $categoriaModel = new CategoriaModel();
         $categorias = $categoriaModel->findAll();
 
@@ -14,6 +19,9 @@ class CategoriaController extends BaseController
     }
 
     public function agregar() {
+        if (!parent::isAdmin())
+            return redirect()->back();
+
         echo view('templates/head', ['titulo' => 'Agregar Categoria']);
         echo view('admin/categorias/agregar');
         echo view('templates/footer');
@@ -32,6 +40,9 @@ class CategoriaController extends BaseController
     }
 
     public function editar($id = null) {
+        if (!parent::isAdmin())
+            return redirect()->back();
+
         $categoriaModel = new CategoriaModel();
         $categoria = $categoriaModel->find($id);
 
