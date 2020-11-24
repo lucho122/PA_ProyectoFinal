@@ -4,6 +4,9 @@ namespace App\Controllers;
 class EliminacionController extends BaseController 
 {
     public function index($modulo = null, $id = null) {
+        if (!parent::isAdmin())
+            return redirect()->back();
+
         $ruta;
         
         switch ($modulo) {

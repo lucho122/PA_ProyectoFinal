@@ -1,17 +1,22 @@
 <?php 
 namespace App\Controllers;
 use App\Models\UsuarioModel;
+use Config\Constantes\Constantes;
 
 class AuthController extends BaseController
 {
-
-
 	public function index()
 	{
+        if (parent::isLogged())
+            return redirect()->back();
+            
 		return view('login');
     }
 
     public function register() {
+        if (parent::isLogged())
+            return redirect()->back();
+
         echo view ('templates/head', ['titulo' => 'Registro']);
 		echo view ('register');
 		echo view ('templates/footer');
@@ -19,32 +24,42 @@ class AuthController extends BaseController
 
     public function registrar() {
         $usuarioModel = new UsuarioModel();
+        $request = $this->request->getPost();
+        $request['PNombre'] = trim($request['PNombre']);
+        $request['SNombre'] = trim($request['SNombre']);
+        $request['PApellido'] = trim($request['PApellido']);
+        $request['SApellido'] = trim($request['SApellido']);
+        $request['Nick'] = trim($request['Nick']);
+        $request['Email'] = trim($request['Email']);
+
         $this->validation->setRuleGroup('registro_usuario');
-        $validacion = $this->validation->withRequest($this->request)->run();
+
+        $validacion = $this->validation->run($request);
         if ($validacion) {
-            $request = $this->request; 
-            $foto = $request->getFile('Foto');
+            $foto = $this->request->getFile('Foto');
             $data = [
-                'rolid' => 2,
-                'usupnombre' => trim($request->getVar('PNombre')),
-                'ususnombre' => trim($request->getVar('SNombre')),
-                'usupapellido' => trim($request->getVar('PApellido')),
-                'ususapellido' => trim($request->getVar('SApellido')),
-                'usufechanacimiento' => $request->getVar('FechaNacimiento'),
-                'usunick' => trim($request->getVar('Nick')),
-                'usupassword' => sha1(trim($request->getVar('Clave'))),
-                'ususexo' => ($request->getVar('Sexo') === 'm') ? true : false,
-                'usuemail' => trim($request->getVar('Email')),
-                'usufoto' => $request->getVar('Nick').'.'. $foto->getExtension(),
-                'usupuntos' => 20
+                'rolid' => Constantes::ROL_REGISTRADO,
+                'usupnombre' => $request['PNombre'],
+                'ususnombre' => $request['SNombre'],
+                'usupapellido' => $request['PApellido'],
+                'ususapellido' => $request['SApellido'],
+                'usufechanacimiento' => $request['FechaNacimiento'],
+                'usunick' =>  $request['Nick'],
+                'usupassword' => sha1($request['Clave']),
+                'ususexo' => ($request['Sexo'] == 'm') ? true : false,
+                'usuemail' => $request['Email'],
+                'usufoto' => $request['Nick'] . '.' . $foto->getExtension(),
+                'usupuntos' => Constantes::PUNTAJE_MINIMO
             ];
-            if ($foto->isValid() && !$foto->hasMoved()) {
-                $foto->move('./usuarios', $data['usufoto']);
+            $usuarioModel->insert($data);
+
+            if ($usuarioModel->affectedRows() == 1) {
+                if ($foto->isValid() && !$foto->hasMoved()) {
+                    $foto->move('./usuarios', $data['usufoto']);
+                }
             }
-            # Devuelve 2 si se ejecuto el ISNERT de manera correcta.
-            $insertar = $usuarioModel->insert($data);
             $this->session->set('usuario', ['nick' => $data['usunick'], 'rol' => $data['rolid']]);
-            return $this->response->redirect(site_url('/'));
+            return $this->response->redirect(base_url('/'));
         }
         $errores = $this->validation->getErrors();
         return redirect()->back()->withInput()->with('errores', $errores);
@@ -59,7 +74,7 @@ class AuthController extends BaseController
         $usuario = $usuarioModel->where('usunick', $data['nick'])->first();
         if ($usuario['usupassword'] === $data['password']) {
             $this->session->set('usuario', ['nick' => $usuario['usunick'], 'rol' => $usuario['rolid']]);
-            return $this->response->redirect(site_url('/'));
+            return $this->response->redirect(base_url('/'));
         }
         else
             return view('login', ['error' => 'Usuario o contrasenia incorrecta']);
@@ -68,7 +83,7 @@ class AuthController extends BaseController
     public function logout() {
         $session = session();
         $session->destroy();
-        return $this->response->redirect(site_url('/'));
+        return $this->response->redirect(base_url('/'));
     }
 
 }

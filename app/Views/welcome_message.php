@@ -222,7 +222,10 @@
 		<h1>Proyecto Test <?= CodeIgniter\CodeIgniter::CI_VERSION ?></h1>
 		<h2>Bienvenido, <?php echo $usuario['nick']; ?></h2>
 		<?php if (isset($_SESSION['usuario'])) { ?>
-			<h2><a href="<?php echo site_url('logout'); ?>">Cerrar sesion</a></h2>
+			<h2><a href="<?php echo base_url('logout'); ?>">Cerrar sesion</a></h2>
+		<?php } else { ?>
+			<h2><a href="<?php echo base_url('login'); ?>">Iniciar sesion</a></h2>
+			<h2><a href="<?php echo base_url('register'); ?>">Registrarse</a></h2>
 		<?php } ?>
 	</div>
 
