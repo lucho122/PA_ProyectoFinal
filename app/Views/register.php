@@ -11,6 +11,7 @@ if (isset($_SESSION['errores'])) { ?>
 <?php } ?>
     <div class="row justify-content-md-center">
     <form action="<?= base_url('register'); ?>" method="post" enctype="multipart/form-data">
+    <br>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="PNombre">Primer Nombre *</label>
@@ -55,6 +56,7 @@ if (isset($_SESSION['errores'])) { ?>
             <div class="radio">
                 <input type="radio" name="Sexo" value="f"> Femenino
             </div>
+        </div>
         <div class="form-group">
             <label for="Email">Correo electrónico *</label>
             <input type="text" class="form-control form-control-sm" name="Email" value="<?= old('Email'); ?>">
@@ -63,7 +65,10 @@ if (isset($_SESSION['errores'])) { ?>
             <label for="Foto">Foto *</label>
             <input type="file" name="Foto">
         </div>
-        <input type="submit" class="btn btn-primary" value="Registrarse">
+        <div class="col-md-12 text-center">
+            <input type="submit" class="btn btn-dark" value="Registrarse">
+        </div>
     </form>
     </div>
+    <br>
 </div>
