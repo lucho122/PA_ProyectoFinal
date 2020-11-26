@@ -14,6 +14,7 @@ class CategoriaController extends BaseController
         $categorias = $categoriaModel->findAll();
 
         echo view('templates/head', ['titulo' => 'Categorias | Admin']);
+        echo view('templates/navbar');
         echo view('admin/categorias/index', ['categorias' => $categorias]);
         echo view('templates/footer');
     }
@@ -23,6 +24,7 @@ class CategoriaController extends BaseController
             return redirect()->back();
 
         echo view('templates/head', ['titulo' => 'Agregar Categoria']);
+        echo view('templates/navbar');
         echo view('admin/categorias/agregar');
         echo view('templates/footer');
     }
@@ -47,11 +49,14 @@ class CategoriaController extends BaseController
         $categoria = $categoriaModel->find($id);
 
         echo view('templates/head', ['titulo' => 'Editar Categoria']);
+        echo view('templates/navbar');
         echo view('admin/categorias/editar', ['categoria' => $categoria]);
         echo view('templates/footer');
     }
 
     public function actualizar() {
+        if (!parent::isAdmin())
+            return redirect()->back();
         $categoriaModel = new CategoriaModel();
         $id = trim($this->request->getVar('Id'));
         $data = [ 'catnombre' => $this->request->getVar('Nombre')];
@@ -65,6 +70,8 @@ class CategoriaController extends BaseController
     }
 
     public function eliminar() {
+        if (!parent::isAdmin())
+            return redirect()->back();
         $categoriaModel = new CategoriaModel();
         $id = trim($this->request->getVar('Id'));
         $categoriaModel->delete($id);

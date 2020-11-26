@@ -18,6 +18,7 @@ class AuthController extends BaseController
             return redirect()->back();
 
         echo view ('templates/head', ['titulo' => 'Registro']);
+        echo view('templates/navbar');
 		echo view ('register');
 		echo view ('templates/footer');
     }

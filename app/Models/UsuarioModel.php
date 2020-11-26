@@ -10,7 +10,7 @@ class UsuarioModel extends Model
 
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['rolid', 'usupnombre', 'usupapellido', 'ususnombre', 
+    protected $allowedFields = ['usuid','rolid', 'usupnombre', 'usupapellido', 'ususnombre', 
                                 'ususapellido', 'usufechanacimiento', 'usunick', 'usupassword', 'ususexo',
                                 'usuemail', 'usufoto', 'usupuntos'];
 
@@ -20,7 +20,6 @@ class UsuarioModel extends Model
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = false;
-
     
 }
 
