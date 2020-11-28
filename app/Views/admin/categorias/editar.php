@@ -8,7 +8,7 @@
                 <input type="text" class="form-control form-control-sm" name="Nombre" value="<?php echo $categoria['catnombre']; ?>">
             </div>
 
-            <input type="submit" class="btn btn-primary" value="Actualizar">
+            <input type="submit" class="btn btn-dark" value="Actualizar">
         </form>
     </div>
 </div>

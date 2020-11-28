@@ -49,6 +49,18 @@ $routes->post('admin/categorias/agregar', 'CategoriaController::guardar');
 $routes->post('admin/categorias/actualizar', 'CategoriaController::actualizar');
 $routes->post('admin/categorias/eliminar', 'CategoriaController::eliminar');
 ## FinCategorias
+## Usuarios
+$routes->get('admin/usuarios', 'UsuarioController::index');
+$routes->get('admin/usuarios/editar/(:num)', 'UsuarioController::editar/$1');
+$routes->post('admin/usuarios/actualizar', 'UsuarioController::actualizar');
+$routes->post('admin/usuarios/eliminar', 'UsuarioController::eliminar');
+## Fin Usuarios
+## Preguntas
+$routes->get('admin/preguntas', 'PreguntaController::adminIndex');
+$routes->get('admin/preguntas/editar/(:num)', 'PreguntaController::editar/$1');
+$routes->post('admin/preguntas/actualizar', 'PreguntaController::actualizar');
+$routes->post('admin/preguntas/eliminar', 'PreguntaController::eliminar');
+## Fin Preguntas
 
 ## Ruta confirmación eliminiaciones
 $routes->get('admin/confirmacion/(:alpha)/(:num)', 'EliminacionController::index/$1/$2');
@@ -59,6 +71,7 @@ $routes->get('admin/confirmacion/(:alpha)/(:num)', 'EliminacionController::index
 $routes->get('pregunta/preguntar', 'PreguntaController::preguntar');
 $routes->post('pregunta/preguntar', 'PreguntaController::crear');
 $routes->get('pregunta/(:num)', 'PreguntaController::index/$1');
+$routes->post('pregunta/responder', 'RespuestaController::responder');
 # Fin Rutas Preguntas/Respuestas
 /**
  * --------------------------------------------------------------------

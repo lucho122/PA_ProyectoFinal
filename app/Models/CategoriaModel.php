@@ -19,7 +19,14 @@ class CategoriaModel extends Model
     protected $validationMessages = [];
     protected $skipValidation     = false;
 
-    
+    public function getCategoriaPreguntas() {
+        return $this->asArray()->select("categoria.catid, catnombre, count(pregunta.preid) AS preguntas", false)
+                                ->join('pregunta', 'categoria.catid = pregunta.catid', 'left')
+                                ->groupBy('categoria.catid')
+                                ->orderBy('preguntas', 'desc')
+                                ->get()
+                                ->getResult();
+    }
 }
 
 ?>

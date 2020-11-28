@@ -7,10 +7,11 @@ if (isset($_SESSION['notificacion'])) { ?>
         </button>
     </div>
 <?php } ?>
-<a href="<?= base_url('admin/categorias/agregar'); ?>">Agregar Categoría</a>
+<br>
+<a class="btn btn-dark" href="<?= base_url('admin/categorias/agregar'); ?>">Agregar Categoría</a>
 <div class="row mt-5">
-       <table class="table table-bordered" id='contenido'>
-         <thead>
+       <table class="table table table-striped table-sm" id='contenido'>
+         <thead class="thead-dark">
             <tr>
                <th>Nombre</th>
                <th></th>
@@ -22,8 +23,8 @@ if (isset($_SESSION['notificacion'])) { ?>
             <tr>
                <td><?php echo $categoria['catnombre'] ?></td>
                <td align="center">
-                    <a class="btn btn-primary" href="<?= base_url('admin/categorias/editar/').'/'.$categoria['catid']; ?>"><i class="fas fa-edit"></i></a>
-                    <a class="btn btn-danger" href="<?= base_url('admin/confirmacion/categoria/').'/'.$categoria['catid']; ?>"><i class="fas fa-trash-alt"></i></a>
+                    <a class="btn-sm btn btn-primary btn-group" href="<?= base_url('admin/categorias/editar/').'/'.$categoria['catid']; ?>"><i class="fas fa-edit"></i></a>
+                    <a class="btn-sm btn btn-danger btn-group" href="<?= base_url('admin/confirmacion/categoria/').'/'.$categoria['catid']; ?>"><i class="fas fa-trash-alt"></i></a>
                </td>
             </tr>
            <?php endforeach; ?>
