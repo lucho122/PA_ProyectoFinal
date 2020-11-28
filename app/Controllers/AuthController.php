@@ -59,7 +59,10 @@ class AuthController extends BaseController
                     $foto->move('./usuarios', $data['usufoto']);
                 }
             }
-            $this->session->set('usuario', ['nick' => $data['usunick'], 'rol' => $data['rolid']]);
+            $usuario = $usuarioModel->where('usunick', $data['nick'])->first();
+
+            $this->session->set('usuario', ['nick' => $data['usunick'], 'rol' => $data['rolid'],
+                                            'id' => $data['usuid'], 'pts' => $data['usupuntos']]);
             return $this->response->redirect(base_url('/'));
         }
         $errores = $this->validation->getErrors();
@@ -72,9 +75,10 @@ class AuthController extends BaseController
             'nick' => $this->request->getVar('nick'),
             'password'  => sha1(trim($this->request->getVar('password'))),
         ];
-        $usuario = $usuarioModel->where('usunick', $data['nick'])->first();
+        $usuario = $usuarioModel->findUser($data['nick']);
         if ($usuario['usupassword'] === $data['password']) {
-            $this->session->set('usuario', ['nick' => $usuario['usunick'], 'rol' => $usuario['rolid']]);
+            $this->session->set('usuario', ['nick' => $usuario['usunick'], 'rol' => $usuario['rolid'], 
+                                            'id' => $usuario['usuid'], 'pts' => $usuario['usupuntos']]);
             return $this->response->redirect(base_url('/'));
         }
         else
