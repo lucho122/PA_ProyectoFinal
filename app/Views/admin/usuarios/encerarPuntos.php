@@ -10,6 +10,7 @@ if (isset($_SESSION['notificacion'])) { ?>
     <div class="row justify-content-md-center">
     <form action="<?= base_url('admin/usuarios/encerarPuntos'); ?>" method="post">
     <br>
+        <input type="hidden" name="oldPts" value="<?= $usuario['usupuntos']; ?>">
         <div class="form-group row">
             <label for="Pts">Puntos *</label>
             <input type="text" class="form-control form-control-sm" name="Pts" value="<?= $usuario['usupuntos']; ?>">
