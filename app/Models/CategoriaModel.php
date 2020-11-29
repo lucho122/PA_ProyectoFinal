@@ -27,6 +27,16 @@ class CategoriaModel extends Model
                                 ->get()
                                 ->getResult();
     }
+
+    public function getPreguntas($id = null) {
+        return $this->asArray()->select("preid, categoria.catid, catnombre, pregunta.usuid, usuario.usunick, 
+                                         pretitulo, predescripcion, TO_CHAR(prefechainicio :: DATE, 'dd/mm/yyyy') AS prefechainicio", false)
+                                ->join('pregunta', 'pregunta.catid = categoria.catid')
+                                ->join('usuario', 'pregunta.usuid = usuario.usuid')
+                                ->where('categoria.catid', $id)
+                                ->get()
+                                ->getResult();
+   }
 }
 
 ?>

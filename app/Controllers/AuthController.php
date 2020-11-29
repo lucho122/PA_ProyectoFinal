@@ -17,8 +17,9 @@ class AuthController extends BaseController
         if (parent::isLogged())
             return redirect()->back();
 
+        $usuario = (isset($this->session->usuario)) ? $this->session->usuario : ['nick' => 'invitado', 'pts' => -1];
         echo view ('templates/head', ['titulo' => 'Registro']);
-        echo view('templates/navbar');
+        echo view('templates/navbar', ['usuario' => $usuario]);
 		echo view ('register');
 		echo view ('templates/footer');
     }

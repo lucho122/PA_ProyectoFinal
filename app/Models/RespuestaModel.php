@@ -19,6 +19,15 @@ class RespuestaModel extends Model
     protected $validationMessages = [];
     protected $skipValidation     = false;
     
+    public function getRespuestasPregunta($id = null)
+    {
+        return $this->asArray()->select("resid, respuesta.usuid, usufoto, usunick, rescontenido, resdestacada, TO_CHAR(resfecha :: DATE, 'dd/mm/yyyy') AS resfecha", false)
+                                ->join('usuario', 'respuesta.usuid = usuario.usuid')
+                                ->where('preid', $id)
+                                ->orderBy('resdestacada DESC, resfecha DESC')
+                                ->get()
+                                ->getResult();
+    }
 }
 
 ?>

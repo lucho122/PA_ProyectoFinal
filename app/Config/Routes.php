@@ -73,6 +73,20 @@ $routes->post('pregunta/preguntar', 'PreguntaController::crear');
 $routes->get('pregunta/(:num)', 'PreguntaController::index/$1');
 $routes->post('pregunta/responder', 'RespuestaController::responder');
 # Fin Rutas Preguntas/Respuestas
+
+# Rutas Preguntas por categoria
+$routes->get('categoria/(:num)', 'CategoriaController::listarPreguntas/$1');
+# Fin Preguntas por categoria
+
+# Rutas Administrar Usuario
+$routes->get('usuario/perfil', 'UsuarioController::editarPerfil');
+$routes->post('usuario/actualizarPerfil', 'UsuarioController::actualizarPerfil');
+$routes->get('usuario/cambiarclave', 'UsuarioController::cambiarClave');
+$routes->post('usuario/cambiarclave', 'UsuarioController::actualizarClave');
+$routes->get('usuario/preguntas', 'UsuarioController::listarPreguntas');
+$routes->get('usuario/respuestas', 'UsuarioController::listarRespuestas');
+$routes->get('usuario/preguntas/destacada', 'UsuarioController::elegirDestacadas');
+# Fin Administrar Usuario
 /**
  * --------------------------------------------------------------------
  * Additional Routing

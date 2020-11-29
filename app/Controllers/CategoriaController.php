@@ -81,5 +81,18 @@ class CategoriaController extends BaseController
 
         return $this->response->redirect(base_url('/admin/categorias'));
     }
+
+    public function listarPreguntas($id = null) {
+
+        $categoriaModel = new CategoriaModel();
+        $preguntas = $categoriaModel->getPreguntas($id);
+
+        $usuario = (isset($this->session->usuario)) ? $this->session->usuario : ['nick' => 'invitado', 'pts' => -1];
+
+		echo view('templates/head', ['titulo' => 'Listar Preguntas']);
+        echo view('templates/navbar', ['usuario' => $usuario]);
+        echo view('categoria/listarPreguntas', ['preguntas' => $preguntas]);
+        echo view('templates/footer');
+    }
 }
 ?>

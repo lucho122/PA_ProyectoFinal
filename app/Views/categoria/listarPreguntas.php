@@ -1,15 +1,5 @@
-<?php if($categorias): ?>
-<ul class="list-group">
-    <?php foreach($categorias as $categoria): ?>
-        <a href="<?= base_url('categoria/'.$categoria->catid) ?>" class="list-group-item justify-content-between align-items-center list-group-item-action">
-            <?= $categoria->catnombre; ?>
-            <span class="badge badge-dark badge-pill"><?= $categoria->preguntas; ?></span>
-        </a>
-    <?php endforeach; ?>
-</ul>
-<?php endif; ?>
-<br>
 <div class="container">
+<br>
 <?php if($preguntas): ?>
     <?php foreach($preguntas as $pregunta): ?>
     <div class="jumbotron text-center hoverable p-4">
@@ -28,4 +18,3 @@
     </div>
     <?php endforeach; ?>
 <?php endif; ?>
-</div>

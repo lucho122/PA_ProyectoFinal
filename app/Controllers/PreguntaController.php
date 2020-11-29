@@ -5,17 +5,36 @@ use App\Models\RespuestaModel;
 use App\Models\CategoriaModel;
 use App\Models\UsuarioModel;
 use CodeIgniter\I18n\Time;
+use Config\Constantes\Constantes;
 
 class PreguntaController extends BaseController 
 {
     public function index($id = null) {
         $preguntaModel = new PreguntaModel();
 
-        $pregunta = $preguntaModel->find($id);
+        $pregunta = $preguntaModel->getPregunta($id);
+
         $respuestaModel = new RespuestaModel();
-        $respuestas = $respuestaModel->where('preid', $id)->orderBy('resfecha', 'desc')->findAll();
-        echo view('templates/head', ['titulo' => $pregunta['pretitulo']]);
-        echo view('templates/navbar', ['usuario' => $this->session->usuario, 'respuestas' => $respuestas]);    
+        $usuarioModel = new UsuarioModel();
+        $respuestas = $respuestaModel->getRespuestasPregunta($id);
+        $usuario = $usuarioModel->where('usunick', $this->session->usuario['nick'])->findAll();
+        $usuario = empty($usuario) ? 'invitado' : $usuario[0]['usuid'];
+        $isAutor = ($pregunta->usuid ==  $usuario) ? true : false;
+        $isLogged = parent::isLogged();
+        $Respondio = false;
+        $isCerrada = (new Time('now') > $pregunta->prefechacierre) ? true : false;
+        foreach ($respuestas as $respuesta) {
+            if ($respuesta->usuid == $usuario) {
+                $Respondio = true;
+                break;
+            }
+        }
+        $puedeResponder = false;
+        if ((!$isAutor && !$Respondio) && $isLogged && !$isCerrada)
+            $puedeResponder = true;
+
+        echo view('templates/head', ['titulo' => $pregunta->pretitulo]);
+        echo view('templates/navbar', ['usuario' => $this->session->usuario, 'respuestas' => $respuestas, 'puedeResponder' => $puedeResponder]);    
         echo view('pregunta/index', ['pregunta' => $pregunta]);
         echo view('templates/footer');
     }
@@ -23,6 +42,9 @@ class PreguntaController extends BaseController
     public function preguntar() {
         if (!parent::isLogged())
             return $this->response->redirect(base_url('register'));
+        
+        if ($this->session->usuario['pts'] < Constantes::PUNTAJE_MINIMO)
+            return redirect()->back();
         
         $categoriaModel = new CategoriaModel();
         $categorias = $categoriaModel->findAll();

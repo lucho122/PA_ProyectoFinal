@@ -36,6 +36,41 @@ class UsuarioModel extends Model
                                 ->get()
                                 ->getResult();
     }
+
+    public function getPreguntas($nick) {
+        return $this->asArray()->select("usunick, catnombre, preid, pretitulo, 
+                                        TO_CHAR(prefechainicio :: DATE, 'dd/mm/yyyy') AS prefechainicio, predescripcion", false)
+                                ->join('pregunta', 'usuario.usuid = pregunta.usuid')
+                                ->join('categoria', 'pregunta.catid = categoria.catid')
+                                ->where('usunick', $nick)
+                                ->orderBy('prefechainicio', 'desc')
+                                ->get()
+                                ->getResult();
+    }
+
+    public function getRespuestas($nick) {
+        return $this->asArray()->select("usunick, catnombre, respuesta.preid, pretitulo, 
+                                         TO_CHAR(resfecha :: DATE, 'dd/mm/yyyy') AS resfecha, rescontenido", false)
+                                ->join('respuesta', 'usuario.usuid = respuesta.usuid')
+                                ->join('pregunta', 'respuesta.preid = pregunta.preid')
+                                ->join('categoria', 'pregunta.catid = categoria.catid')
+                                ->where('usunick', $nick)
+                                ->orderBy('resfecha', 'desc')
+                                ->get()
+                                ->getResult();
+    }
+
+    public function getPreguntasElegirDestacada($nick) {
+        return $this->asArray()->select("usunick, catnombre, preid, pretitulo, TO_CHAR(prefechacierre :: DATE, 'dd/mm/yyyy') 
+                                        AS prefechacierre, predescripcion", false)
+                                ->join('pregunta', 'usuario.usuid = pregunta.usuid')
+                                ->join('categoria', 'pregunta.catid = categoria.catid')
+                                ->where('usunick', $nick)
+                                ->where('(current_date - prefechacierre) >', 0)
+                                ->orderBy('prefechacierre', 'desc')
+                                ->get()
+                                ->getResult();
+    }
 }
 
 ?>
