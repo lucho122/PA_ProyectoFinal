@@ -9,8 +9,13 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">                    
+        <div class="col-md-12 text-center">                    
             <button class="btn btn-dark  btn-circle" type="submit">Actualizar</button>
         </div>
-    </div>         
+    </div>       
 </form>
+<br>
+<div class="col-md-12 text-center">
+          <a href="http://localhost:8080/pregunta/<?= $respuesta['preid']; ?>"><button type="button" class="btn btn-dark">Regresar</button></a>
+        </div>
+<br>

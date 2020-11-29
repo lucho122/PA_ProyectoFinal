@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="<?= base_url('/'); ?>">Navbar</a>
+  <a class="navbar-brand" href="<?= base_url('/'); ?>">Prime Q&A</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarPagina" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>

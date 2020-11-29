@@ -18,3 +18,7 @@
     </div>
     <?php endforeach; ?>
 <?php endif; ?>
+<br>
+        <div class="col-md-12 text-center">
+          <a href="http://localhost:8080/index.php"><button type="button" class="btn btn-dark">Regresar</button></a>
+        </div> 

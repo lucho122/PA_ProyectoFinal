@@ -84,5 +84,8 @@ if (isset($_SESSION['errores'])) { ?>
     </form>
             
     </div>
-    <br>
 </div>
+<br>
+        <div class="col-md-12 text-center">
+          <a href="index.php"><button type="button" class="btn btn-dark">Regresar</button></a>
+        </div>

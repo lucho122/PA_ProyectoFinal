@@ -13,6 +13,7 @@
                 <p class="font-weight-normal"><?= $pregunta->predescripcion; ?></p>
 
                 <a class="btn btn-dark" href="<?= base_url('pregunta').'/'.$pregunta->preid; ?>"><i class="far fa-eye"></i> Ver pregunta</a>
+                
             </div>
         </div>
     </div>
@@ -20,3 +21,7 @@
 <?php else: ?>
 <div class="text-center">No tiene preguntas actualmente</div>
 <?php endif; ?>
+<br>
+<div class="col-md-12 text-center">
+          <a href="http://localhost:8080/index.php"><button type="button" class="btn btn-dark">Regresar</button></a>
+        </div>
