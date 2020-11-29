@@ -82,6 +82,7 @@ $routes->get('pregunta/(:num)', 'PreguntaController::index/$1');
 $routes->post('pregunta/responder', 'RespuestaController::responder');
 $routes->get('pregunta/respuesta/edit/(:num)', 'RespuestaController::editar/$1');
 $routes->post('pregunta/respuesta/edit', 'RespuestaController::actualizar');
+$routes->post('pregunta/respuesta/destacada', 'RespuestaController::marcarDestacada');
 # Fin Rutas Preguntas/Respuestas
 
 # Rutas Preguntas por categoria

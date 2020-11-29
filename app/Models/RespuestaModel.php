@@ -21,7 +21,7 @@ class RespuestaModel extends Model
     
     public function getRespuestasPregunta($id = null)
     {
-        return $this->asArray()->select("resid, respuesta.usuid, usufoto, usunick, rescontenido, resdestacada, TO_CHAR(resfecha :: DATE, 'dd/mm/yyyy') AS resfecha", false)
+        return $this->asArray()->select("resid, respuesta.preid, respuesta.usuid, usufoto, usunick, rescontenido, resdestacada, TO_CHAR(resfecha :: DATE, 'dd/mm/yyyy') AS resfecha", false)
                                 ->join('usuario', 'respuesta.usuid = usuario.usuid')
                                 ->where('preid', $id)
                                 ->orderBy('resdestacada DESC, resfecha DESC')

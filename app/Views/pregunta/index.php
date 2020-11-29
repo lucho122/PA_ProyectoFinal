@@ -24,8 +24,9 @@
                    <div class="well well-lg">
                         <h4 class="media-heading reviews"><?= $respuesta->usunick; ?> </h4>
                         <?php if($elegirDestacada): ?>
-                            <form action="#" method="post">
-                                <input type="hidden" name="Id" value="<?= $respuesta->usuid; ?>">
+                            <form action="<?= base_url('pregunta/respuesta/destacada'); ?>" method="post">
+                                <input type="hidden" name="Id" value="<?= $respuesta->resid; ?>">
+                                <input type="hidden" name="Pregunta" value="<?= $respuesta->preid; ?>">
                                 <input type="submit" value="Elegir destacada">
                             </form>
                         <?php endif; ?>
