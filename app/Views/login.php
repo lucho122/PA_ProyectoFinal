@@ -24,6 +24,9 @@ if (isset($error))
         <input type="password" name="password" placeholder="Contraseña" required autofocus><br/><br/>
     </div>
     <input type="submit" value="Iniciar Sesion">
+        <div class="form-control ">
+          <a href="index.php"><button type="button" >Regresar</button></a>
+        </div>
     </form>
 </body>
 </html>
