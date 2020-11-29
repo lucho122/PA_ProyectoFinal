@@ -223,7 +223,8 @@ class UsuarioController extends BaseController
         $data = ['usupuntos' => $request['Pts']];
         $mensaje = ['admid' => $admin['usuid'],
                     'usuid' => $request['Id'],
-                    'macontenido' => $request['Razon'],
+                    'macontenido' => 'Puntaje encerado. Antes: ' . $request['oldPts'] . ', Ahora: ' . $request['Pts']
+                                     .  '<br /> Motivo: ' . $request['Razon'],
                     'maemision' => $emision->toDateString()];
 
         $usuarioModel->update($request['Id'], $data);

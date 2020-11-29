@@ -22,7 +22,7 @@ class MensajesModel extends Model
     public function getMensajes($id) {
         return $this->asArray()->select("macontenido, maemision", false)
                                ->where('mensajeadministracion.usuid', $id)
-                               ->orderBy('maemision', 'desc')
+                               ->orderBy('maid', 'desc')
                                ->get()
                                ->getResult();
     }
