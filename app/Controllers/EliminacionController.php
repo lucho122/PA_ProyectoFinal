@@ -17,7 +17,7 @@ class EliminacionController extends BaseController
                 $ruta = 'admin/preguntas/eliminar';
                 break;
             case 'respuesta':
-                # code...
+                $ruta = 'admin/respuestas/eliminar';
                 break;
             case 'usuario':
                 $ruta = 'admin/usuarios/eliminar';

@@ -16,11 +16,16 @@
     </div>
     <br>
     <?php if($respuestas): ?>
-    
         <ul class="media-list">
             <?php foreach($respuestas as $respuesta): ?>
              <li class="media">
                   <img class="img-thumbnail rounded-circle" width="50" src="<?= base_url('usuarios/'.$respuesta->usufoto); ?>" alt="profile">  
+                  <?php if($elegirDestacada): ?>
+                    <form action="#" method="post">
+                        <input type="hidden" name="Id" value="">
+                        <input type="submit" value="Elegir destacada">
+                    </form>
+                  <?php endif; ?>
                 <div class="media-body">
                    <div class="well well-lg">
                         <h4 class="media-heading text-uppercase reviews"><?= $respuesta->usunick; ?> </h4>

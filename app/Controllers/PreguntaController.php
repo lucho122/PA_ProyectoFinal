@@ -22,6 +22,7 @@ class PreguntaController extends BaseController
         $isAutor = ($pregunta->usuid ==  $usuario) ? true : false;
         $isLogged = parent::isLogged();
         $Respondio = false;
+        $hayDestacada = false;
         $isCerrada = (new Time('now') > $pregunta->prefechacierre) ? true : false;
         foreach ($respuestas as $respuesta) {
             if ($respuesta->usuid == $usuario) {
@@ -29,13 +30,22 @@ class PreguntaController extends BaseController
                 break;
             }
         }
+        foreach ($respuestas as $respuesta) {
+            if ($respuesta->resdestacada == 't') {
+                $hayDestacada = true;
+                break;
+            }
+        }
+        $elegirDestacada = false;
         $puedeResponder = false;
         if ((!$isAutor && !$Respondio) && $isLogged && !$isCerrada)
             $puedeResponder = true;
+        if ($isAutor && !$hayDestacada && $isCerrada)
+            $elegirDestacada = true;
 
         echo view('templates/head', ['titulo' => $pregunta->pretitulo]);
-        echo view('templates/navbar', ['usuario' => $this->session->usuario, 'respuestas' => $respuestas, 'puedeResponder' => $puedeResponder]);    
-        echo view('pregunta/index', ['pregunta' => $pregunta]);
+        echo view('templates/navbar', ['usuario' => $this->session->usuario]);
+        echo view('pregunta/index', ['pregunta' => $pregunta, 'respuestas' => $respuestas, 'puedeResponder' => $puedeResponder, 'elegirDestacada' => $elegirDestacada]);
         echo view('templates/footer');
     }
 
