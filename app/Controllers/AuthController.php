@@ -17,7 +17,7 @@ class AuthController extends BaseController
         if (parent::isLogged())
             return redirect()->back();
 
-        $usuario = (isset($this->session->usuario)) ? $this->session->usuario : ['nick' => 'invitado', 'pts' => -1];
+        $usuario = (isset($this->session->usuario)) ? $this->session->usuario : ['nick' => 'invitado', 'pts' => -1  ];
         echo view ('templates/head', ['titulo' => 'Registro']);
         echo view('templates/navbar', ['usuario' => $usuario]);
 		echo view ('register');
@@ -60,10 +60,9 @@ class AuthController extends BaseController
                     $foto->move('./usuarios', $data['usufoto']);
                 }
             }
-            $usuario = $usuarioModel->where('usunick', $data['nick'])->first();
 
             $this->session->set('usuario', ['nick' => $data['usunick'], 'rol' => $data['rolid'],
-                                            'id' => $data['usuid'], 'pts' => $data['usupuntos']]);
+                                            'pts' => $data['usupuntos']]);
             return $this->response->redirect(base_url('/'));
         }
         $errores = $this->validation->getErrors();
