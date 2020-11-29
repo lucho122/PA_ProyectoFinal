@@ -28,6 +28,14 @@ class RespuestaModel extends Model
                                 ->get()
                                 ->getResult();
     }
+
+    public function getRespuestas() {
+        return $this->asArray()->select('resid, respuesta.preid, usunick AS autor, rescontenido AS respuesta')
+                               ->join('pregunta', 'respuesta.preid = pregunta.preid')
+                               ->join('usuario', 'respuesta.usuid = usuario.usuid')
+                               ->get()
+                            ->getResult();
+    }
 }
 
 ?>

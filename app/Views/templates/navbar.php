@@ -23,7 +23,7 @@
                       <i class="fas fa-user-cog"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="nbUsuario">
-                    <a class="dropdown-item" href="<?= base_url('admin/categorias') ?>">Notificaciones</a>
+                    <a class="dropdown-item" href="<?= base_url('usuario/notificaciones') ?>">Notificaciones</a>
                       <a class="dropdown-item" href="<?= base_url('usuario/perfil') ?>">Editar Perfil</a>
                       <a class="dropdown-item" href="<?= base_url('usuario/preguntas') ?>">Mis preguntas</a>
                       <a class="dropdown-item" href="<?= base_url('usuario/respuestas') ?>">Mis respuestas</a>

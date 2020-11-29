@@ -14,7 +14,7 @@ class RespuestaController extends BaseController
         $request['Respuesta'] = trim($request['Respuesta']);
 
         $usuarioModel = new UsuarioModel();
-        $respuestModel = new RespuestaModel();
+        $respuestaModel = new RespuestaModel();
 
         $usuario = $usuarioModel->where('usunick', $this->session->usuario['nick'])->findAll();
 
@@ -28,7 +28,7 @@ class RespuestaController extends BaseController
             'resfecha' => $fCreacion->toDateString()
         ];
 
-        $respuestModel->insert($data);
+        $respuestaModel->insert($data);
         $id = $request['Pregunta'];
         $this->actualizarPuntaje();
         return $this->response->redirect(base_url('pregunta/'.$id));
@@ -52,9 +52,63 @@ class RespuestaController extends BaseController
             return redirect()->back();
     }
 
+    public function adminIndex() {
+        if (!parent::isAdmin())
+            return redirect()->back();
+
+        $respuestaModel = new RespuestaModel();
+
+        $respuestas = $respuestaModel->getRespuestas();
+
+        echo view('templates/head', ['titulo' => 'Respuestas | Admin']);
+        echo view('templates/navbar', ['usuario' => $this->session->usuario]);    
+        echo view('admin/respuestas/index', ['respuestas' => $respuestas]);
+        echo view('templates/footer');
+    }
+
+    public function adminEditar($id = null) {
+        if (!parent::isAdmin())
+            return redirect()->back();
+
+        $respuestaModel = new RespuestaModel();
+        $respuesta = $respuestaModel->find($id);
+
+        echo view('templates/head', ['titulo' => 'Editar Respuesta']);
+        echo view('templates/navbar', ['usuario' => $this->session->usuario]);  
+        echo view('admin/respuestas/editar', ['respuesta' => $respuesta]);
+        echo view('templates/footer');
+    }
+
+    public function adminActualizar() {
+        if (!parent::isAdmin())
+            return redirect()->back();
+
+        $request = $this->request->getPost();
+        $respuestaModel = new RespuestaModel();
+        
+        $id = trim($request['Id']);
+        $data = ['rescontenido' => $request['Respuesta']];
+
+        $respuestaModel->update($id, $data);
+
+        $this->session->set('notificacion', ['label' => 'alert-info', 'mensaje' => 'Respuesta actualizada con éxito']);
+        $this->session->markAsFlashdata('notificacion');
+
+        return $this->response->redirect(base_url('/admin/respuestas'));
+    }
+
     public function eliminar() {
         if (!parent::isAdmin())
             return redirect()->back();
+
+        $respuestaModel = new RespuestaModel();
+        $id = trim($this->request->getVar('Id'));
+        $respuestaModel->delete($id);
+
+        $this->session->set('notificacion', ['label' => 'alert-danger', 'mensaje' => 'Respuesta eliminada con éxito']);
+        $this->session->markAsFlashdata('notificacion');
+
+        return $this->response->redirect(base_url('/admin/respuestas'));
     }
 }
 

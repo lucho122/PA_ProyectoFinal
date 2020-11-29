@@ -38,8 +38,9 @@ if (isset($_SESSION['notificacion'])) { ?>
                <td class="align-middle"><?= $usuario->usuemail; ?></td>
                <td class="align-middle"><?= $usuario->usupuntos; ?></td>
                <td class="align-middle" align="center">
-                    <a class="btn-sm btn-primary btn-group" href="<?= base_url('admin/usuarios/editar/').'/'.$usuario->usuid; ?>"><i class="fas fa-edit"></i></a>
-                    <a class="btn-sm btn-danger btn-group" href="<?= base_url('admin/confirmacion/usuario/').'/'.$usuario->usuid; ?>"><i class="fas fa-trash-alt"></i></a>
+                  <a class="btn-sm btn-warning btn-group" href="<?= base_url('admin/usuarios/encerarPuntos/').'/'.$usuario->usuid; ?>"><i class="fas fa-medal"></i></a>
+                  <a class="btn-sm btn-primary btn-group" href="<?= base_url('admin/usuarios/editar/').'/'.$usuario->usuid; ?>"><i class="fas fa-edit"></i></a>
+                  <a class="btn-sm btn-danger btn-group" href="<?= base_url('admin/confirmacion/usuario/').'/'.$usuario->usuid; ?>"><i class="fas fa-trash-alt"></i></a>
                </td>
             </tr>
            <?php endforeach; ?>

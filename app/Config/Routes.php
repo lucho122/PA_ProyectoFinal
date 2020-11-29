@@ -54,6 +54,8 @@ $routes->get('admin/usuarios', 'UsuarioController::index');
 $routes->get('admin/usuarios/editar/(:num)', 'UsuarioController::editar/$1');
 $routes->post('admin/usuarios/actualizar', 'UsuarioController::actualizar');
 $routes->post('admin/usuarios/eliminar', 'UsuarioController::eliminar');
+$routes->get('admin/usuarios/encerarPuntos/(:num)', 'UsuarioController::encerarPuntos/$1');
+$routes->post('admin/usuarios/encerarPuntos', 'UsuarioController::encerar');
 ## Fin Usuarios
 ## Preguntas
 $routes->get('admin/preguntas', 'PreguntaController::adminIndex');
@@ -61,6 +63,12 @@ $routes->get('admin/preguntas/editar/(:num)', 'PreguntaController::editar/$1');
 $routes->post('admin/preguntas/actualizar', 'PreguntaController::actualizar');
 $routes->post('admin/preguntas/eliminar', 'PreguntaController::eliminar');
 ## Fin Preguntas
+## Respuestas
+$routes->get('admin/respuestas', 'RespuestaController::adminIndex');
+$routes->get('admin/respuestas/editar/(:num)', 'RespuestaController::adminEditar/$1');
+$routes->post('admin/respuestas/actualizar', 'RespuestaController::adminActualizar');
+$routes->post('admin/respuestas/eliminar', 'RespuestaController::eliminar');
+## Fin Respuestas
 
 ## Ruta confirmación eliminiaciones
 $routes->get('admin/confirmacion/(:alpha)/(:num)', 'EliminacionController::index/$1/$2');
@@ -86,6 +94,7 @@ $routes->post('usuario/cambiarclave', 'UsuarioController::actualizarClave');
 $routes->get('usuario/preguntas', 'UsuarioController::listarPreguntas');
 $routes->get('usuario/respuestas', 'UsuarioController::listarRespuestas');
 $routes->get('usuario/preguntas/destacada', 'UsuarioController::elegirDestacadas');
+$routes->get('usuario/notificaciones', 'UsuarioController::listarNotificaciones');
 # Fin Administrar Usuario
 /**
  * --------------------------------------------------------------------

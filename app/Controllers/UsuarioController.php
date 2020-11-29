@@ -1,6 +1,8 @@
 <?php
 namespace App\Controllers;
 use App\Models\UsuarioModel;
+use App\Models\MensajesModel;
+use CodeIgniter\I18n\Time;
 
 class UsuarioController extends BaseController 
 {
@@ -185,6 +187,67 @@ class UsuarioController extends BaseController
         echo view('templates/head', ['titulo' => 'Mis Respuestas']);
         echo view('templates/navbar', ['usuario' => $this->session->usuario]);
         echo view('usuario/destacada', ['preguntas' => $preguntas]);
+        echo view('templates/footer');
+    }
+
+    public function encerarPuntos($id = null) {
+        if (!parent::isAdmin())
+            return redirect()->back();
+
+        $usuarioModel = new UsuarioModel();
+        $usuario = $usuarioModel->find($id);
+        
+        echo view('templates/head', ['titulo' => 'Encerar Puntos']);
+        echo view('templates/navbar', ['usuario' => $this->session->usuario]);
+        echo view('admin/usuarios/encerarPuntos', ['usuario' => $usuario]);
+        echo view('templates/footer');
+    }
+
+    public function encerar() {
+        if (!parent::isAdmin())
+            return redirect()->back();
+
+        $request = $this->request->getPost();
+
+        if($request['Pts'] < 0) {
+            $this->session->set('notificacion', 'Los puntos ingresados deben ser mayor o igual a 0');
+            $this->session->markAsFlashdata('notificacion');
+            return $this->response->redirect(base_url('admin/usuarios/encerarPuntos/'.'/'.$request['Id']));
+        }
+
+        $usuarioModel = new UsuarioModel();
+        $mensajesModel = new MensajesModel();
+
+        $admin = $usuarioModel->findUser($this->session->usuario['nick']);
+        $emision = new Time('now');
+        $data = ['usupuntos' => $request['Pts']];
+        $mensaje = ['admid' => $admin['usuid'],
+                    'usuid' => $request['Id'],
+                    'macontenido' => $request['Razon'],
+                    'maemision' => $emision->toDateString()];
+
+        $usuarioModel->update($request['Id'], $data);
+        $mensajesModel->insert($mensaje);
+
+        $this->session->set('notificacion', ['label' => 'alert-success', 'mensaje' => 'Puntos encerados con éxito']);
+        $this->session->markAsFlashdata('notificacion');
+
+        return $this->response->redirect(base_url('/admin/usuarios'));
+    }
+
+    public function listarNotificaciones() {
+        if (!parent::isLogged())
+            return redirect()->back();
+
+        $usuarioModel = new UsuarioModel();
+        $mensajesModel = new MensajesModel();
+
+        $usuario = $usuarioModel->findUser($this->session->usuario['nick']);
+        $mensajes = $mensajesModel->getMensajes($usuario['usuid']);
+
+        echo view('templates/head', ['titulo' => 'Notificaciones']);
+        echo view('templates/navbar', ['usuario' => $this->session->usuario]);
+        echo view('usuario/notificaciones', ['mensajes' => $mensajes]);
         echo view('templates/footer');
     }
 }
