@@ -30,14 +30,7 @@ if (isset($_SESSION['errores'])) { ?>
             </div>
             <div class="form-group col-md-6">
                 <label for="SApellido">Segundo Apellido</label>
-                <input type="text" class="form-control form-control-sm" name="SApellido" value="<?= old('SApellido'); ?>">
-                <?php      
-                    if(isset($_POST['PNombre'])){
-                    $day=$_POST['PNombre'];
-                    $pieces = $day;
-                    echo $pieces;
-                    }  
-                ?>
+                <input type="text" class="form-control form-control-sm" name="SApellido" value="<?= old('SApellido'); ?>">              
             </div>
         </div>
         <div class="form-group">
