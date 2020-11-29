@@ -1,3 +1,4 @@
+
 <div class="container">
 <?php
 if (isset($_SESSION['errores'])) { ?>
@@ -15,7 +16,7 @@ if (isset($_SESSION['errores'])) { ?>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="PNombre">Primer Nombre *</label>
-                <input type="text" class="form-control form-control-sm" name="PNombre" value="<?= old('PNombre'); ?>">
+                <input type="text" class="form-control form-control-sm" name="PNombre" id="PNombre" value="<?= old('PNombre'); ?>">
             </div>
             <div class="form-group col-md-6">
                 <label for="SNombre">Segundo Nombre</label>
@@ -25,11 +26,11 @@ if (isset($_SESSION['errores'])) { ?>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="PApellido">Primer Apellido *</label>
-                <input type="text" class="form-control form-control-sm" name="PApellido" value="<?= old('PApellido'); ?>">
+                <input type="text" class="form-control form-control-sm" name="PApellido" id="PApellido" value="<?= old('PApellido'); ?>">
             </div>
             <div class="form-group col-md-6">
                 <label for="SApellido">Segundo Apellido</label>
-                <input type="text" class="form-control form-control-sm" name="SApellido" value="<?= old('SApellido'); ?>">
+                <input type="text" class="form-control form-control-sm" name="SApellido" value="<?= old('SApellido'); ?>">              
             </div>
         </div>
         <div class="form-group">
@@ -38,7 +39,19 @@ if (isset($_SESSION['errores'])) { ?>
         </div>
         <div class="form-group">
             <label for="Nick">Nick *</label>
-            <input type="text" class="form-control form-control-sm" name="Nick" value="<?= old('Nick'); ?>">
+            
+            <input type="text" class="form-control form-control-sm" name="Nick" id="Nick" value="<?= old('Nick'); ?>">
+            <input type="button" value="Generar Nick" onclick="genNick()">
+            <script>
+                function genNick(){
+                
+                nombre = document.getElementById("PNombre").value;
+                var GenNombre = nombre.substring(0,1);
+                Genapellido  =document.getElementById("PApellido").value;
+                var NumeroAleatorio = Math.floor(Math.random()*999)+100;
+                document.getElementById("Nick").value = GenNombre+Genapellido+''+NumeroAleatorio;
+                };
+            </script>
         </div>
         <div class="form-group">
             <label for="Clave">Contraseña *</label>
@@ -69,6 +82,7 @@ if (isset($_SESSION['errores'])) { ?>
             <input type="submit" class="btn btn-dark" value="Registrarse">
         </div>
     </form>
+            
     </div>
     <br>
 </div>
