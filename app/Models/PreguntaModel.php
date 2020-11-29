@@ -30,6 +30,15 @@ class PreguntaModel extends Model
                                 ->getResult();
     }
 
+    public function getPregunta($id = null) {
+        return $this->asArray()->select("preid, catnombre, usufoto, pregunta.usuid, usunick, pretitulo, predescripcion,TO_CHAR(prefechainicio :: DATE, 'dd/mm/yyyy') AS prefechainicio, prefechacierre", false)
+                               ->join('usuario', 'pregunta.usuid = usuario.usuid')
+                               ->join('categoria', 'pregunta.catid = categoria.catid')
+                               ->where('pregunta.preid', $id)
+                               ->get()
+                               ->getFirstRow();
+   }
+
     public function getAllPreguntas() {
          return $this->asArray()->select('pregunta.preid, usunick AS autor, catnombre AS categoria, pretitulo, 
                                          predescripcion, 
