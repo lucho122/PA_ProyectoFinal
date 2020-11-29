@@ -143,6 +143,23 @@ class RespuestaController extends BaseController
 
         return $this->response->redirect(base_url('pregunta/'.$pregunta));
     }
+
+    public function marcarDestacada() {
+        if (!parent::isLogged())
+            return redirect()->back();
+        
+        $request = $this->request->getPost();
+        $respuestaModel = new RespuestaModel();
+        $id = $request['Id'];
+        $pregunta = $request['Pregunta'];
+        $respuesta = $respuestaModel->find($id);
+
+        $data = ['resdestacada' => true];
+
+        $respuestaModel->update($id, $data);
+
+        return $this->response->redirect(base_url('pregunta/'.$pregunta));
+    }
 }
 
 ?>

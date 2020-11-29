@@ -61,12 +61,15 @@ class UsuarioModel extends Model
     }
 
     public function getPreguntasElegirDestacada($nick) {
-        return $this->asArray()->select("usunick, catnombre, preid, pretitulo, TO_CHAR(prefechacierre :: DATE, 'dd/mm/yyyy') 
-                                        AS prefechacierre, predescripcion", false)
+        return $this->asArray()->select("usunick, catnombre, pregunta.preid, pretitulo, TO_CHAR(prefechacierre :: DATE, 'dd/mm/yyyy') AS prefechacierre, 
+                                        predescripcion", false)
                                 ->join('pregunta', 'usuario.usuid = pregunta.usuid')
                                 ->join('categoria', 'pregunta.catid = categoria.catid')
-                                ->where('usunick', $nick)
-                                ->where('(current_date - prefechacierre) >', 0)
+                                ->join('respuesta', 'respuesta.preid = pregunta.preid')
+                                ->groupBy('pregunta.preid, usunick, catnombre')
+                                ->having('usunick', $nick)
+                                ->having('(current_date - prefechacierre) >', 0)
+                                ->having(' COUNT(CASE WHEN respuesta.resdestacada THEN 1 END)', 0)
                                 ->orderBy('prefechacierre', 'desc')
                                 ->get()
                                 ->getResult();
