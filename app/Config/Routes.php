@@ -80,6 +80,8 @@ $routes->get('pregunta/preguntar', 'PreguntaController::preguntar');
 $routes->post('pregunta/preguntar', 'PreguntaController::crear');
 $routes->get('pregunta/(:num)', 'PreguntaController::index/$1');
 $routes->post('pregunta/responder', 'RespuestaController::responder');
+$routes->get('pregunta/respuesta/edit/(:num)', 'RespuestaController::editar/$1');
+$routes->post('pregunta/respuesta/edit', 'RespuestaController::actualizar');
 # Fin Rutas Preguntas/Respuestas
 
 # Rutas Preguntas por categoria

@@ -17,7 +17,10 @@ class PreguntaController extends BaseController
         $respuestaModel = new RespuestaModel();
         $usuarioModel = new UsuarioModel();
         $respuestas = $respuestaModel->getRespuestasPregunta($id);
-        $usuario = $usuarioModel->where('usunick', $this->session->usuario['nick'])->findAll();
+        $nick = null;
+        if(isset($this->session->usuario['nick']))
+            $nick = $this->session->usuario['nick'];
+        $usuario = $usuarioModel->where('usunick', $nick)->findAll();
         $usuario = empty($usuario) ? 'invitado' : $usuario[0]['usuid'];
         $isAutor = ($pregunta->usuid ==  $usuario) ? true : false;
         $isLogged = parent::isLogged();
@@ -38,14 +41,18 @@ class PreguntaController extends BaseController
         }
         $elegirDestacada = false;
         $puedeResponder = false;
+        $puedeEditarRespuesta = false;
         if ((!$isAutor && !$Respondio) && $isLogged && !$isCerrada)
             $puedeResponder = true;
         if ($isAutor && !$hayDestacada && $isCerrada)
             $elegirDestacada = true;
+        if ($Respondio && $isLogged && !$isCerrada)
+            $puedeEditarRespuesta = true;
 
         echo view('templates/head', ['titulo' => $pregunta->pretitulo]);
         echo view('templates/navbar', ['usuario' => $this->session->usuario]);
-        echo view('pregunta/index', ['pregunta' => $pregunta, 'respuestas' => $respuestas, 'puedeResponder' => $puedeResponder, 'elegirDestacada' => $elegirDestacada]);
+        echo view('pregunta/index', ['pregunta' => $pregunta, 'respuestas' => $respuestas, 'puedeResponder' => $puedeResponder, 
+                                     'elegirDestacada' => $elegirDestacada, 'puedeEditarRespuesta' => $puedeEditarRespuesta]);
         echo view('templates/footer');
     }
 

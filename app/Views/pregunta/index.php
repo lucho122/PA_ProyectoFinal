@@ -20,20 +20,23 @@
             <?php foreach($respuestas as $respuesta): ?>
              <li class="media">
                   <img class="img-thumbnail rounded-circle" width="50" src="<?= base_url('usuarios/'.$respuesta->usufoto); ?>" alt="profile">  
-                  <?php if($elegirDestacada): ?>
-                    <form action="#" method="post">
-                        <input type="hidden" name="Id" value="">
-                        <input type="submit" value="Elegir destacada">
-                    </form>
-                  <?php endif; ?>
                 <div class="media-body">
                    <div class="well well-lg">
-                        <h4 class="media-heading text-uppercase reviews"><?= $respuesta->usunick; ?> </h4>
+                        <h4 class="media-heading reviews"><?= $respuesta->usunick; ?> </h4>
+                        <?php if($elegirDestacada): ?>
+                            <form action="#" method="post">
+                                <input type="hidden" name="Id" value="<?= $respuesta->usuid; ?>">
+                                <input type="submit" value="Elegir destacada">
+                            </form>
+                        <?php endif; ?>
+                         <?php if($puedeEditarRespuesta && $respuesta->usunick == $usuario['nick']): ?>
+                            <a href="<?= base_url('pregunta/respuesta/edit'.'/'.$respuesta->resid) ?>">Editar respuesta</a>
+                        <?php endif; ?>
                         <h6><?= $respuesta->resfecha ?></h6>
                         <h6><?php if($respuesta->resdestacada == 't')  { ?> <h5><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></h5> <?php } ?></h6>
                         <p class="media-comment">
                             <?= $respuesta->rescontenido ?>
-                        </p>  
+                        </p>
                     </div>
                 </li>
            <?php endforeach; ?>
