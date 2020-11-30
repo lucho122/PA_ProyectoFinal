@@ -1,6 +1,7 @@
 <div class="container">
 <br>
 <?php if($preguntas): ?>
+    <?= $pager->links() ?>
     <?php foreach($preguntas as $pregunta): ?>
     <div class="jumbotron text-center hoverable p-4">
         <div class="row">

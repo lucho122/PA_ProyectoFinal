@@ -38,6 +38,7 @@ class CategoriaController extends BaseController
 
         $this->session->set('notificacion', ['label' => 'alert-success', 'mensaje' => 'Categoría agregada con éxito']);
         $this->session->markAsFlashdata('notificacion');
+
         return $this->response->redirect(base_url('/admin/categorias'));
     }
 
@@ -59,6 +60,7 @@ class CategoriaController extends BaseController
             return redirect()->back();
         $categoriaModel = new CategoriaModel();
         $id = trim($this->request->getVar('Id'));
+
         $data = [ 'catnombre' => $this->request->getVar('Nombre')];
 
         $categoriaModel->update($id, $data);
@@ -86,12 +88,13 @@ class CategoriaController extends BaseController
 
         $categoriaModel = new CategoriaModel();
         $preguntas = $categoriaModel->getPreguntas($id);
+        $pager = \Config\Services::pager();
 
         $usuario = (isset($this->session->usuario)) ? $this->session->usuario : ['nick' => 'invitado', 'pts' => -1];
 
 		echo view('templates/head', ['titulo' => 'Listar Preguntas']);
         echo view('templates/navbar', ['usuario' => $usuario]);
-        echo view('categoria/listarPreguntas', ['preguntas' => $preguntas]);
+        echo view('categoria/listarPreguntas', ['preguntas' => $preguntas, 'pager' => $categoriaModel->pager]);
         echo view('templates/footer');
     }
 }
