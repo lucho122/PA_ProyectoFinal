@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use Config\Constantes\Constantes;
 
 class RespuestaModel extends Model
 {
@@ -21,12 +22,11 @@ class RespuestaModel extends Model
     
     public function getRespuestasPregunta($id = null)
     {
-        return $this->asArray()->select("resid, respuesta.preid, respuesta.usuid, usufoto, usunick, rescontenido, resdestacada, TO_CHAR(resfecha :: DATE, 'dd/mm/yyyy') AS resfecha", false)
+        return $this->asObject()->select("resid, respuesta.preid, respuesta.usuid, usufoto, usunick, rescontenido, resdestacada, TO_CHAR(resfecha :: DATE, 'dd/mm/yyyy') AS resfecha", false)
                                 ->join('usuario', 'respuesta.usuid = usuario.usuid')
                                 ->where('preid', $id)
                                 ->orderBy('resdestacada DESC, resfecha DESC')
-                                ->get()
-                                ->getResult();
+                                ->paginate(Constantes::PAG_MAX);
     }
 
     public function getRespuestas() {
@@ -34,7 +34,7 @@ class RespuestaModel extends Model
                                ->join('pregunta', 'respuesta.preid = pregunta.preid')
                                ->join('usuario', 'respuesta.usuid = usuario.usuid')
                                ->get()
-                            ->getResult();
+                               ->getResult();
     }
 }
 
