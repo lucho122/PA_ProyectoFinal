@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use Config\Constantes\Constantes;
 
 class UsuarioModel extends Model
 {
@@ -38,26 +39,24 @@ class UsuarioModel extends Model
     }
 
     public function getPreguntas($nick) {
-        return $this->asArray()->select("usunick, catnombre, preid, pretitulo, 
+        return $this->asObject()->select("usunick, catnombre, preid, pretitulo, 
                                         TO_CHAR(prefechainicio :: DATE, 'dd/mm/yyyy') AS prefechainicio, predescripcion", false)
                                 ->join('pregunta', 'usuario.usuid = pregunta.usuid')
                                 ->join('categoria', 'pregunta.catid = categoria.catid')
                                 ->where('usunick', $nick)
                                 ->orderBy('prefechainicio', 'desc')
-                                ->get()
-                                ->getResult();
+                                ->paginate(Constantes::PAG_MAX);
     }
 
     public function getRespuestas($nick) {
-        return $this->asArray()->select("usunick, catnombre, respuesta.preid, pretitulo, 
+        return $this->asObject()->select("usunick, catnombre, respuesta.preid, pretitulo, 
                                          TO_CHAR(resfecha :: DATE, 'dd/mm/yyyy') AS resfecha, rescontenido", false)
                                 ->join('respuesta', 'usuario.usuid = respuesta.usuid')
                                 ->join('pregunta', 'respuesta.preid = pregunta.preid')
                                 ->join('categoria', 'pregunta.catid = categoria.catid')
                                 ->where('usunick', $nick)
                                 ->orderBy('resfecha', 'desc')
-                                ->get()
-                                ->getResult();
+                                ->paginate(Constantes::PAG_MAX);
     }
 
     public function getPreguntasElegirDestacada($nick) {
@@ -74,6 +73,7 @@ class UsuarioModel extends Model
                                 ->get()
                                 ->getResult();
     }
+
 }
 
 ?>

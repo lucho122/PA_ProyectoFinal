@@ -11,7 +11,7 @@ class PreguntaController extends BaseController
 {
     public function index($id = null) {
         $preguntaModel = new PreguntaModel();
-
+        $pager = \Config\Services::pager();
         $pregunta = $preguntaModel->getPregunta($id);
 
         $respuestaModel = new RespuestaModel();
@@ -48,11 +48,11 @@ class PreguntaController extends BaseController
             $elegirDestacada = true;
         if ($Respondio && $isLogged && !$isCerrada)
             $puedeEditarRespuesta = true;
-
         echo view('templates/head', ['titulo' => $pregunta->pretitulo]);
         echo view('templates/navbar', ['usuario' => $this->session->usuario]);
         echo view('pregunta/index', ['pregunta' => $pregunta, 'respuestas' => $respuestas, 'puedeResponder' => $puedeResponder, 
-                                     'elegirDestacada' => $elegirDestacada, 'puedeEditarRespuesta' => $puedeEditarRespuesta]);
+                                     'elegirDestacada' => $elegirDestacada, 'puedeEditarRespuesta' => $puedeEditarRespuesta,
+                                     'pager' => $respuestaModel->pager]);
         echo view('templates/footer');
     }
 

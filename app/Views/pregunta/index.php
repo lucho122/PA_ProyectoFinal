@@ -43,6 +43,7 @@
            <?php endforeach; ?>
         </ul>
     <?php endif; ?>
+    <?= $pager->links() ?>
 
     <?php if($puedeResponder) { ?>
         <form action="<?= base_url('pregunta/responder') ?>" method="post" class="form-horizontal"> 

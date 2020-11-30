@@ -10,7 +10,7 @@ class PreguntaModel extends Model
 
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['catid', 'usuid', 'pretitulo', 'predescripcion', 'prefechainicio', 'prefechacierre'];
+    protected $allowedFields = ['prepenalizada', 'catid', 'usuid', 'pretitulo', 'predescripcion', 'prefechainicio', 'prefechacierre'];
 
     protected $useTimestamps = false;
 
@@ -49,6 +49,23 @@ class PreguntaModel extends Model
                                 ->getResult();
     }
     
+    public function getPreguntasCerradasSD() {
+        return $this->asArray()->select('usuid', false)
+                               ->where('(current_date - prefechacierre) >', 0)
+                               ->where('pregunta.prepenalizada', false)
+                               ->orderBy('prefechacierre', 'desc')
+                               ->get()
+                               ->getResult();
+    }
+
+    public function getPreguntasPenalizar() {
+        return $this->asArray()->select('preid, usuid, pretitulo', false)
+                               ->where('(current_date - prefechacierre) >=', 10)
+                               ->where('pregunta.prepenalizada', false)
+                               ->orderBy('prefechacierre', 'desc')
+                               ->get()
+                               ->getResult();
+    }
 }
 
 ?>

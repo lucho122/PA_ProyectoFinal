@@ -156,10 +156,11 @@ class UsuarioController extends BaseController
             return redirect()->back();
 
         $usuarioModel = new UsuarioModel();
+        $pager = \Config\Services::pager();
         $preguntas = $usuarioModel->getPreguntas($this->session->usuario['nick']);
         echo view('templates/head', ['titulo' => 'Mis Preguntas']);
         echo view('templates/navbar', ['usuario' => $this->session->usuario]);
-        echo view('usuario/preguntas', ['preguntas' => $preguntas]);
+        echo view('usuario/preguntas', ['preguntas' => $preguntas, 'pager' => $usuarioModel->pager]);
         echo view('templates/footer');
 
     }
@@ -169,11 +170,12 @@ class UsuarioController extends BaseController
             return redirect()->back();
 
         $usuarioModel = new UsuarioModel();
+        $pager = \Config\Services::pager();
         $respuestas = $usuarioModel->getRespuestas($this->session->usuario['nick']);
 
         echo view('templates/head', ['titulo' => 'Mis Respuestas']);
         echo view('templates/navbar', ['usuario' => $this->session->usuario]);
-        echo view('usuario/respuestas', ['respuestas' => $respuestas]);
+        echo view('usuario/respuestas', ['respuestas' => $respuestas, 'pager' => $usuarioModel->pager]);
         echo view('templates/footer');
     }
 

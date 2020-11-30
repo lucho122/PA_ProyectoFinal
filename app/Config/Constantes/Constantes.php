@@ -8,6 +8,7 @@ abstract class Constantes
     const PUNTAJE_MINIMO = 20;
     const ROL_ADMIN = 1;
     const ROL_REGISTRADO = 2;
+    const PAG_MAX = 20;
 }
 
 ?>

@@ -98,6 +98,7 @@ $routes->get('usuario/preguntas', 'UsuarioController::listarPreguntas');
 $routes->get('usuario/respuestas', 'UsuarioController::listarRespuestas');
 $routes->get('usuario/preguntas/destacada', 'UsuarioController::elegirDestacadas');
 $routes->get('usuario/notificaciones', 'UsuarioController::listarNotificaciones');
+$routes->cli('penalizar', 'Mensaje::restarpuntos');
 # Fin Administrar Usuario
 /**
  * --------------------------------------------------------------------
